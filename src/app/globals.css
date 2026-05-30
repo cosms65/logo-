@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+
+html { scroll-behavior: smooth; }
+body {
+  min-height: 100vh;
+  background: #05030d;
+  color: #d8e9ff;
+}
+
+.cosmic-shell::before {
+  content: "";
+  position: fixed;
+  inset: -20%;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(139, 92, 246, 0.28), transparent 28%),
+    radial-gradient(circle at 80% 10%, rgba(34, 211, 238, 0.18), transparent 24%),
+    radial-gradient(circle at 55% 85%, rgba(245, 158, 11, 0.14), transparent 30%);
+  filter: blur(8px);
+  animation: drift 18s ease-in-out infinite alternate;
+  z-index: -2;
+}
+
+.cosmic-shell::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(255,255,255,.34) 1px, transparent 1px);
+  background-size: 46px 46px;
+  opacity: .13;
+  z-index: -1;
+}
+
+.prose-cosmic { @apply prose prose-invert prose-headings:text-white prose-a:text-plasma prose-strong:text-white; }
