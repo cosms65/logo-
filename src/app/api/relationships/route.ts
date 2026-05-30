@@ -3,7 +3,7 @@ import { z } from "zod";
 import { assertEditor } from "@/lib/admin-api";
 import { prisma } from "@/lib/prisma";
 
-const schema = z.object({ sourceType: z.enum(["ARTICLE", "CHARACTER", "FACTION", "CHAPTER", "TIMELINE_EVENT", "CATEGORY", "MEDIA_ASSET", "LOCATION", "REALM"]), sourceId: z.string(), targetType: z.enum(["ARTICLE", "CHARACTER", "FACTION", "CHAPTER", "TIMELINE_EVENT", "CATEGORY", "MEDIA_ASSET", "LOCATION", "REALM"]), targetId: z.string(), type: z.enum(["RELATED", "MEMBER_OF", "LEADS", "ALLY", "RIVAL", "APPEARS_IN", "REFERENCES", "PARENT_OF", "CUSTOM"]).default("RELATED"), label: z.string().optional(), metadata: z.unknown().optional() });
+const schema = z.object({ sourceType: z.enum(["ARTICLE", "CHARACTER", "FACTION", "CHAPTER", "TIMELINE_EVENT", "CATEGORY", "MEDIA_ASSET", "LOCATION", "REALM", "COSMOLOGY"]), sourceId: z.string(), targetType: z.enum(["ARTICLE", "CHARACTER", "FACTION", "CHAPTER", "TIMELINE_EVENT", "CATEGORY", "MEDIA_ASSET", "LOCATION", "REALM", "COSMOLOGY"]), targetId: z.string(), type: z.enum(["RELATED", "MEMBER_OF", "LEADS", "ALLY", "RIVAL", "APPEARS_IN", "REFERENCES", "PARENT_OF", "CUSTOM"]).default("RELATED"), label: z.string().optional(), metadata: z.unknown().optional() });
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);

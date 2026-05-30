@@ -6,6 +6,7 @@ const links = [
   ["Wiki", "/wiki"],
   ["Characters", "/characters"],
   ["Factions", "/factions"],
+  ["Cosmology", "/cosmology"],
   ["Read", "/read"],
   ["Timeline", "/timeline"]
 ];

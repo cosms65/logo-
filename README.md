@@ -63,3 +63,7 @@ This repository provides only the framework and empty administrative workflows. 
 ## Authentication troubleshooting
 
 The login form is implemented with an Auth.js server action instead of posting directly to `/api/auth/signin/credentials`. This is important because Auth.js manages CSRF protection internally for server actions. If you see `MissingCSRF`, make sure you are using the current `src/app/login/page.tsx` implementation and that `AUTH_URL` matches the URL you use in the browser, for example `http://localhost:3000` during local development.
+
+## Admin content studio
+
+The admin dashboard includes a responsive content upload studio for Characters, Articles, Timeline entries, Factions, and Cosmology. These forms collect the required title/name, biography or description text, and image uploads such as landscape banners, character portraits, and faction logos. Images are uploaded through the Cloudinary-backed `/api/upload` route and stored as reusable media assets before being attached to the created record.

@@ -30,6 +30,7 @@ enum EntityType {
   MEDIA_ASSET
   LOCATION
   REALM
+  COSMOLOGY
 }
 
 enum RelationshipType {
@@ -127,6 +128,8 @@ model Article {
   categoryId     String?
   category       Category?       @relation(fields: [categoryId], references: [id])
   tags           Tag[]           @relation("ArticleTags")
+  bannerImageId  String?
+  bannerImage    MediaAsset?     @relation("ArticleBanner", fields: [bannerImageId], references: [id])
   customFields   CustomField[]
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
@@ -245,6 +248,9 @@ model MediaAsset {
   characterPortraits    Character[] @relation("CharacterPortrait")
   factionBanners        Faction[]   @relation("FactionBanner")
   factionLogos          Faction[]   @relation("FactionLogo")
+  articleBanners        Article[]   @relation("ArticleBanner")
+  timelineBanners       TimelineEvent[] @relation("TimelineBanner")
+  cosmologyBanners      Cosmology[] @relation("CosmologyBanner")
   createdAt             DateTime    @default(now())
   updatedAt             DateTime    @updatedAt
 
@@ -252,21 +258,38 @@ model MediaAsset {
 }
 
 model TimelineEvent {
-  id           String      @id @default(cuid())
-  title        String
-  slug         String      @unique
-  description  Json        @default("{}")
-  renderedText String      @default("")
-  era          String?
-  startsAt     DateTime?
-  endsAt       DateTime?
-  sortOrder    Int         @default(0)
-  tags         Tag[]       @relation("TimelineTags")
-  customFields CustomField[]
+  id            String      @id @default(cuid())
+  title         String
+  slug          String      @unique
+  description   Json        @default("{}")
+  renderedText  String      @default("")
+  bannerImageId String?
+  bannerImage   MediaAsset? @relation("TimelineBanner", fields: [bannerImageId], references: [id])
+  era           String?
+  startsAt      DateTime?
+  endsAt        DateTime?
+  sortOrder     Int         @default(0)
+  tags          Tag[]       @relation("TimelineTags")
+  customFields  CustomField[]
   createdAt    DateTime    @default(now())
   updatedAt    DateTime    @updatedAt
 
   @@index([startsAt, sortOrder])
+}
+
+model Cosmology {
+  id            String        @id @default(cuid())
+  title         String
+  slug          String        @unique
+  summary       Json          @default("{}")
+  renderedText  String        @default("")
+  bannerImageId String?
+  bannerImage   MediaAsset?   @relation("CosmologyBanner", fields: [bannerImageId], references: [id])
+  customFields  CustomField[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([title])
 }
 
 model Tag {
@@ -298,16 +321,19 @@ model CustomField {
   characterId  String?
   factionId    String?
   timelineId   String?
+  cosmologyId  String?
   definition   CustomFieldDefinition  @relation(fields: [definitionId], references: [id], onDelete: Cascade)
   article      Article?               @relation(fields: [articleId], references: [id], onDelete: Cascade)
   character    Character?             @relation(fields: [characterId], references: [id], onDelete: Cascade)
   faction      Faction?               @relation(fields: [factionId], references: [id], onDelete: Cascade)
   timeline     TimelineEvent?         @relation(fields: [timelineId], references: [id], onDelete: Cascade)
+  cosmology    Cosmology?             @relation(fields: [cosmologyId], references: [id], onDelete: Cascade)
 
   @@index([articleId])
   @@index([characterId])
   @@index([factionId])
   @@index([timelineId])
+  @@index([cosmologyId])
 }
 
 model Relationship {

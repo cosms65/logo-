@@ -4,7 +4,7 @@ import { assertEditor } from "@/lib/admin-api";
 import { prisma } from "@/lib/prisma";
 import { asPlainText, makeSlug } from "@/lib/utils";
 
-const schema = z.object({ title: z.string().min(1), excerpt: z.string().optional(), content: z.unknown().optional(), categoryId: z.string().optional(), status: z.enum(["DRAFT", "SCHEDULED", "PUBLISHED", "ARCHIVED"]).default("DRAFT"), scheduledFor: z.string().datetime().optional() });
+const schema = z.object({ title: z.string().min(1), excerpt: z.string().optional(), content: z.unknown().optional(), bannerImageId: z.string().optional(), categoryId: z.string().optional(), status: z.enum(["DRAFT", "SCHEDULED", "PUBLISHED", "ARCHIVED"]).default("DRAFT"), scheduledFor: z.string().datetime().optional() });
 
 export async function GET() {
   const articles = await prisma.article.findMany({ orderBy: { updatedAt: "desc" }, include: { category: true, tags: true }, take: 100 });
