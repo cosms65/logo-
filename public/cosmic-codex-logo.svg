@@ -1,0 +1,13 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cosmic Codex logo placeholder">
+  <rect width="512" height="512" rx="128" fill="#05030d"/>
+  <circle cx="256" cy="220" r="132" fill="#151035" stroke="#a78bfa" stroke-width="8"/>
+  <path d="M314 105c-55 24-92 78-92 140 0 62 37 116 92 140-82-10-146-79-146-164S232 67 314 105Z" fill="#d8e9ff"/>
+  <path d="M116 286c48-42 97-58 146-47 43 10 86 41 134 31" stroke="#22d3ee" stroke-width="18" stroke-linecap="round" opacity=".9"/>
+  <path d="M151 330c50-26 91-28 125-7 33 20 64 21 92 3" stroke="#8b5cf6" stroke-width="16" stroke-linecap="round" opacity=".85"/>
+  <path d="M144 372c72-42 152-42 224 0" stroke="#f8fafc" stroke-width="20" stroke-linecap="round"/>
+  <path d="M144 372c72 30 152 30 224 0" stroke="#c4b5fd" stroke-width="12" stroke-linecap="round"/>
+  <path d="M256 55l23 60 63 5-49 40 15 62-52-34-52 34 15-62-49-40 63-5 23-60Z" fill="#f59e0b" stroke="#fde68a" stroke-width="5"/>
+  <circle cx="334" cy="171" r="8" fill="#fff"/>
+  <circle cx="194" cy="158" r="5" fill="#fff"/>
+  <circle cx="362" cy="316" r="5" fill="#fff"/>
+</svg>

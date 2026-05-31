@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { ContentStudio } from "@/components/admin/content-studio";
+import { EntityManager } from "@/components/admin/entity-manager";
 import { QuickCreate } from "@/components/admin/quick-create";
 import { Card } from "@/components/ui/card";
 import { auth } from "@/lib/auth";
@@ -23,6 +24,7 @@ export default async function AdminPage() {
       </section>
       <section className="mt-8 space-y-6">
         <ContentStudio />
+        <EntityManager />
         <div className="grid gap-6 lg:grid-cols-[1fr_.8fr]">
           <QuickCreate />
           <Card>

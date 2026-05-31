@@ -67,3 +67,17 @@ The login form is implemented with an Auth.js server action instead of posting d
 ## Admin content studio
 
 The admin dashboard includes a responsive content upload studio for Characters, Articles, Timeline entries, Factions, and Cosmology. These forms collect the required title/name, biography or description text, and image uploads such as landscape banners, character portraits, and faction logos. Images are uploaded through the Cloudinary-backed `/api/upload` route and stored as reusable media assets before being attached to the created record.
+
+## Logo setup
+
+The navigation uses `NEXT_PUBLIC_SITE_LOGO_URL` from `.env`. By default it points to `/cosmic-codex-logo.svg`, a local fallback in `public/`. To use your uploaded Cosmic Codex image, save it inside `public/` such as `public/cosmic-codex-logo.png`, then set:
+
+```env
+NEXT_PUBLIC_SITE_LOGO_URL="/cosmic-codex-logo.png"
+```
+
+Restart `npm run dev` after changing `.env`.
+
+## Admin edit/delete and common fixes
+
+The admin dashboard includes an edit/delete manager for Articles, Characters, Timeline entries, and Cosmology. Articles created from the content studio are published by default so they appear on `/wiki` and open to their full content page. The chapter quick-create tool now lets the API assign the next chapter number, avoiding PostgreSQL `INT4` overflow from timestamp-sized numbers. Duplicate category names receive a unique slug suffix instead of crashing with a Prisma unique constraint error. If image upload returns a Cloudinary `Invalid api_key` error, fix the three Cloudinary values in `.env` and restart the dev server.

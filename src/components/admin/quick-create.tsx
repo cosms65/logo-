@@ -16,7 +16,7 @@ export function QuickCreate() {
   async function submit(event: React.FormEvent) {
     event.preventDefault();
     const payload = endpoint.includes("chapters")
-      ? { title, number: Date.now(), content: { blocks: [] } }
+      ? { title, content: { blocks: [] } }
       : { name: title };
     const response = await fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
     setMessage(response.ok ? "Created successfully." : "Creation failed. Check required fields and permissions.");

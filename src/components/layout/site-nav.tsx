@@ -1,5 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
-import { BookOpen, Eclipse, Search, Shield } from "lucide-react";
+import { Search, Shield } from "lucide-react";
 import { auth } from "@/lib/auth";
 
 const links = [
@@ -11,13 +12,16 @@ const links = [
   ["Timeline", "/timeline"]
 ];
 
+const logoUrl = process.env.NEXT_PUBLIC_SITE_LOGO_URL || "/cosmic-codex-logo.svg";
+
 export async function SiteNav() {
   const session = await auth();
   return (
     <header className="sticky top-0 z-40 border-b border-white/10 bg-void/80 backdrop-blur-xl">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
-        <Link href="/" className="flex items-center gap-2 font-bold tracking-wide text-white">
-          <Eclipse className="h-6 w-6 text-solar" /> Eclipse of the Final Realm
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
+        <Link href="/" className="flex min-w-0 items-center gap-3 font-bold tracking-wide text-white">
+          <Image src={logoUrl} alt="Cosmic Codex logo" width={56} height={56} className="h-12 w-12 shrink-0 rounded-xl object-contain shadow-glow" priority />
+          <span className="truncate text-sm sm:text-base">Eclipse of the Final Realm</span>
         </Link>
         <div className="hidden items-center gap-6 md:flex">
           {links.map(([label, href]) => <Link key={href} href={href} className="text-sm text-starlight/80 hover:text-white">{label}</Link>)}

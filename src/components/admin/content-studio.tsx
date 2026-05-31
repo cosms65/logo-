@@ -105,7 +105,10 @@ export function ContentStudio() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ file: fileData, altText: `${title} ${field.label}`, usage: field.usage })
     });
-    if (!response.ok) throw new Error(`Could not upload ${field.label}`);
+    if (!response.ok) {
+      const payload = await response.json().catch(() => null) as { error?: string } | null;
+      throw new Error(payload?.error || `Could not upload ${field.label}`);
+    }
     const asset = await response.json() as { id: string };
     return asset.id;
   }
@@ -124,14 +127,17 @@ export function ContentStudio() {
         ...imagePayload
       };
       if (entityType === "character" && status) payload.status = status;
-      if (entityType === "article") payload.status = "DRAFT";
+      if (entityType === "article") payload.status = "PUBLISHED";
 
       const response = await fetch(config.endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       });
-      if (!response.ok) throw new Error("Could not create entry");
+      if (!response.ok) {
+        const payload = await response.json().catch(() => null) as { error?: string } | null;
+        throw new Error(payload?.error || "Could not create entry");
+      }
       setTitle("");
       setBody("");
       setStatus("");

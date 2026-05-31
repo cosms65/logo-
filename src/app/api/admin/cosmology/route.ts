@@ -2,7 +2,8 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { assertEditor } from "@/lib/admin-api";
 import { prisma } from "@/lib/prisma";
-import { asPlainText, makeSlug } from "@/lib/utils";
+import { createUniqueSlug } from "@/lib/server-utils";
+import { asPlainText } from "@/lib/utils";
 
 const schema = z.object({
   title: z.string().min(1),
@@ -19,6 +20,7 @@ export async function POST(request: Request) {
   if (guard.error) return guard.error;
   const parsed = schema.safeParse(await request.json());
   if (!parsed.success) return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 });
-  const cosmology = await prisma.cosmology.create({ data: { ...parsed.data, slug: makeSlug(parsed.data.title), renderedText: asPlainText(parsed.data.summary) } });
+  const slug = await createUniqueSlug(parsed.data.title, (candidate) => prisma.cosmology.findUnique({ where: { slug: candidate }, select: { id: true } }));
+  const cosmology = await prisma.cosmology.create({ data: { ...parsed.data, slug, renderedText: asPlainText(parsed.data.summary) } });
   return NextResponse.json(cosmology, { status: 201 });
 }
